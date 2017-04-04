@@ -1,10 +1,6 @@
-function [coste] = calcularCoste(x)
-%coste=x(1)^2+x(2)^2;
-%Leer secuencias de cotizaciones
-%calcular retornos
-%Calcular OE
-%evaluamos la solucion propuesta
-% Dt=sign(alpha1*ct+alpha2*Oet)
-% Ut=rt*Dt
+function [coste] = calcularCoste(x,Ct,OEt)
+coste=x(1)*Ct+x(2)*OEt;  %es una función cualquiera en la que sabemos cuál es el mínimo
+                     
+
 % Utotal=sum(ut)
 % coste=-Utotal,
