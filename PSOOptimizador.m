@@ -1,9 +1,9 @@
 function [alpha1,alpha2] = PSOOptimizador(Ct,OEt)
 
-nP=30;
+nP=50;
 %inicializacion
 nVar=2;
-x=random('Uniform',-1,1,nVar,nP);
+x=random('Uniform',-0.5,1.5,nVar,nP);  %-1,1 original
 v=random('Uniform',-0.001,0.001,nVar,nP);    %velocidad
 xOptimo=x;                                  
 cOptimos=zeros(1,nP);                        %vector de costes óptimos
@@ -21,7 +21,7 @@ for k=1:nP                                      % k = la enésima partícula
         pOptima=x(:,k);
     end
 end
-%[costeOptimoGlobal, indice] = min(vectorCostesOptimos)
+
 nIter=5;
 plot(x(1,:),x(2,:),'xr');
 hold on
