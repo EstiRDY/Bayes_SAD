@@ -29,7 +29,7 @@
         'gas_natural','grifols','iag','iberdrola','inditex','indra_a','mapfre','mediaset','melia_hotels', ...
         'merlin_prop.','r.e.c.','repsol','santander','tecnicas_reu','telefonica','viscofan'};
    
-    for t = 1:5 %cambiar por 35!
+    for t = 1:1 %son35
         url_string =['http://www.infobolsa.es/cotizacion/',ibex35{t}];
         lectura = urlread(url_string);
         Posicion = strfind(lectura,'"subdata1"');
@@ -54,11 +54,13 @@
   
         Ct = str2num(cotizacion);                                 % Ct = Valor acción momento t
         run valorcierre;                                          % Se recoge la cotización del momento t-1
-        run prueba_fecha;
+      % run prueba_fecha;
         
         Cotizanterior = str2num(cotAnterior);                     % Cotizanterior = Valor acción momento t-1
         valorMax = str2num(valorMax); 
         valorMin = str2num(valorMin); 
+        
+        run prueba_fecha;
         
         Rt = Ct - Cotizanterior;                                  % Rt = Retorno             
         OEt = 100*(Cotizanterior-valorMin)/(valorMax-valorMin);   % OEt = Oscilador Estocástico
@@ -66,12 +68,12 @@
         
         
   % 4 -  PSO
-
-        [alpha1,alpha2] = PSOOptimizador(Ct,OEt);
+        OEempresa
+        [alpha1,alpha2] = PSOOptimizador(Ct,OEt,OEempresa,vectorResultadosFormateados);
         
   % 5 -  DECISIÓN Y UTILIDAD
   
-        Dt = sign(alpha1*Ct+alpha2*OEt);                         % Variable de decisión {-1,1}
+        Dt = sign(alpha1*Ct+alpha2*OEt);                         % Variable de decisión {-1 no comprar,1 sí comprar}
         Ut = Dt*Rt;                                              % Variable de utilidad
        
         %Se tratará de invertir cuando la utilidad sea máxima. 
@@ -80,7 +82,7 @@
         fprintf('%d |EMPRESA: %s| \n  \t Ct: %d \t OEt: %d \t Rt: %d   \n\t alpha1: %d \t alpha2: %d \n\t Dt: %d \t Ut: %d  \n\n\n', ...
             t, ibex35{t},Ct,OEt,Rt,alpha1,alpha2,Dt,Ut);
         
-       % vectorResultados     %llamado a prueba_fecha
+        vectorResultadosFormateados    %llamado a prueba_fecha
     end
      
 

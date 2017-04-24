@@ -1,4 +1,4 @@
-function [alpha1,alpha2] = PSOOptimizador(Ct,OEt)
+function [alpha1,alpha2] = PSOOptimizador(Ct,OEt,OEempresa,vectorResultadosFormateados)
 
 nP=50;
 %inicializacion
@@ -15,7 +15,7 @@ inercia=0.01;
 deltaT=0.1;
 
 for k=1:nP                                      % k = la enésima partícula
-    cOptimos(k)= calcularCoste(x(:,k),Ct,OEt);
+    cOptimos(k)= calcularCoste(x(:,k),Ct,OEt,OEempresa,vectorResultadosFormateados);
     if cOptimos(k)<cOptimoGlobal
         cOptimoGlobal=cOptimos(k);
         pOptima=x(:,k);
@@ -28,7 +28,7 @@ hold on
 grid on
 for i=1:nIter
     for k=1:nP
-    c(k)= calcularCoste(x(:,k),Ct,OEt);
+    c(k)= calcularCoste(x(:,k),Ct,OEt,OEempresa,vectorResultadosFormateados);
         if c(k)<cOptimos(k)
             cOptimos(k)=c(k);
             xOptimo(:,k)=x(:,k);
@@ -55,5 +55,6 @@ alpha1= pOptima(1);
 alpha2= pOptima(2);
 
 nP;
+
 clearvars nP x v xOptimo cOptimos c cOptimoGlobal phi1Max phi2Max inercia deltaT 
 end

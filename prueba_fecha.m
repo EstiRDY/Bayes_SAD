@@ -7,7 +7,7 @@ url_string = ['http://www.infobolsa.es/cotizacion/historico-', empresa];
 
 fechahoy = date;
 
-for k=1:10
+for k=1:3 %eran 10
     
     hoy = fechahoy;
     Busday = busdate(hoy,-1);
@@ -22,8 +22,10 @@ end
 
 diasFormateados = [];
 vectorResultados = [];
+vectorResultadosFormateados = [];
+OEempresa = [];
 
-for i=1:10
+for i=1:3 %eran 10
     
     diaFormato = vectorDias{i};
     diaFormato = datestr(diaFormato,formatOut);
@@ -48,6 +50,24 @@ for i=1:10
      resulBuscado = ResultadosF{4};
      vectorResultados{i} = resulBuscado;
     
+     % cálculo del oscilador estocástico para cada empresa, para cada día.
+     % OEt = 100*(Cotizanterior-valorMin)/(valorMax-valorMin); 
+     
+        expression = ',';
+        replace = '.';
+        cosa = regexprep(resulBuscado,expression,replace);
+        
+        cosa = str2double(cosa);
+        
+    OEempresa{i} = 100*(cosa-valorMin)/(valorMax-valorMin) ;
+    
+   for i=1:length(vectorResultados)
+       var = regexprep(vectorResultados(i),expression,replace);
+       var = str2double(var);
+       vectorResultadosFormateados{i} = var;
+   end
+  
 end
 % diasFormateados 
+ % OEempresa
  clearvars PosicionFinalF PosicionInicialF PosicionF busquedaF diasFormateados vectorDias diaFormato hoy ayer
