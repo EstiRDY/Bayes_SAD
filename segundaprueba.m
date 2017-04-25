@@ -79,8 +79,8 @@
         %Se tratará de invertir cuando la utilidad sea máxima. 
      
   % 6 -  (OPCIONAL) SALIDA DE DATOS POR PANTALLA    
-        fprintf('%d |EMPRESA: %s| \n  \t Ct: %d \t OEt: %d \t Rt: %d   \n\t alpha1: %d \t alpha2: %d \n\t Dt: %d \t Ut: %d  \n\n\n', ...
-            t, ibex35{t},Ct,OEt,Rt,alpha1,alpha2,Dt,Ut);
+        fprintf('%d |EMPRESA: %s| \n  \t Ct: %d \t OEt: %d \t Rt: %d   \n\t alpha1: %d \t alpha2: %d \n\t  Ut: %d  \n\n\n', ...
+            t, ibex35{t},Ct,OEt,Rt,alpha1,alpha2,Ut);
         
         vectorResultadosFormateados    %llamado a prueba_fecha
     end

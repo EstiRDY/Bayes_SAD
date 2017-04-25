@@ -1,13 +1,13 @@
-function [coste] = calcularCoste(x,Ct,OEt,OEempresa,vectorResultadosFormateados)
+function [costedos] = calcularCoste(x,Ct,OEt,OEempresa,vectorResultadosFormateados)
 
 OEempresa;                              % Vector que recoge los Oscil. Estocásticos de los días anteriores de 1 empresa. 
 vectorResultadosFormateados;            % Vector que recoge las cotizaciones de los días anteriores de 1 empresa
-coste=x(1)*Ct+x(2)*OEt;                 % Fórmula "temporal" para calcular el coste. No es la buena. 
+%coste=x(1)*Ct+x(2)*OEt;                 % Fórmula "temporal" para calcular el coste. No es la buena. 
 vectorDt = [];                          % Vector que recoge todas las variables de decisión que se van calculando.
 Ganar = [];
 
-longCotiz = length(vectorResultadosFormateados)
-longOEs = length(OEempresa)
+longCotiz = length(vectorResultadosFormateados);
+longOEs = length(OEempresa);
 % La longitud de estos vectores es siempre evidentemente, igual al número de días evaluados
 
 %========NI TOCAR - ESTA ES LA CHULETA DE EKAITZ================================
@@ -32,10 +32,17 @@ for n=1:longCotiz
     Ganar{n} = v^f;
 end 
     
-%FALTA: 1) HACER LA FUNCIÓN DIFF CON EL VECTOR GANAR
+% 1) HACER LA FUNCIÓN DIFF CON EL VECTOR GANAR
+   A = cell2mat(Ganar);
+   diferencia = diff(A);
+   
 %       2) COSTE = -(SUMAR TODOS LOS VALORES DEL VECTOR GANAR)
+   costedos=-sum(diferencia);
+    
+%       3) CALCULAR LA VARIABLE DE UTILIDAD??????
+
+        % Utotal=sum(ut)
+        % coste=-Utotal,
     
 end
 
-% Utotal=sum(ut)
-% coste=-Utotal,
