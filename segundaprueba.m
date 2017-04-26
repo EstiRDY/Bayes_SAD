@@ -29,7 +29,7 @@
         'gas_natural','grifols','iag','iberdrola','inditex','indra_a','mapfre','mediaset','melia_hotels', ...
         'merlin_prop.','r.e.c.','repsol','santander','tecnicas_reu','telefonica','viscofan'};
    
-    for t = 1:1 %son35
+    for t = 1:35 %son35
         url_string =['http://www.infobolsa.es/cotizacion/',ibex35{t}];
         lectura = urlread(url_string);
         Posicion = strfind(lectura,'"subdata1"');
@@ -69,18 +69,24 @@
         
   % 4 -  PSO
         OEempresa
-        [alpha1,alpha2] = PSOOptimizador(Ct,OEt,OEempresa,vectorResultadosFormateados);
+        [alpha1,alpha2,vectorDt] = PSOOptimizador(Ct,OEt,OEempresa,vectorResultadosFormateados);
         
   % 5 -  DECISIÓN Y UTILIDAD
-  
-        Dt = sign(alpha1*Ct+alpha2*OEt);                         % Variable de decisión {-1 no comprar,1 sí comprar}
-        Ut = Dt*Rt;                                              % Variable de utilidad
+       vectorDt
+       vectorDecision = cell2mat(vectorDt);
+       Ut = [];                                              % Variable de utilidad
+       for iteraciones=1:length(vectorDecision)
+           Utilidad = vectorDecision(iteraciones)*Rt;
+           Ut{iteraciones} = Utilidad;
+       end
+       Util = cell2mat(Ut);
+       utitotal = sum(Util);
        
         %Se tratará de invertir cuando la utilidad sea máxima. 
      
   % 6 -  (OPCIONAL) SALIDA DE DATOS POR PANTALLA    
         fprintf('%d |EMPRESA: %s| \n  \t Ct: %d \t OEt: %d \t Rt: %d   \n\t alpha1: %d \t alpha2: %d \n\t  Ut: %d  \n\n\n', ...
-            t, ibex35{t},Ct,OEt,Rt,alpha1,alpha2,Ut);
+            t, ibex35{t},Ct,OEt,Rt,alpha1,alpha2,utitotal);
         
         vectorResultadosFormateados    %llamado a prueba_fecha
     end
